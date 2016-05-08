@@ -192,7 +192,7 @@ function balance(){
 		var diff = parseFloat(sumDr(a)) - parseFloat(sumCr(a));
 		if(diff > 0){dtransact(a[0],'balance b/d',diff);balances.push([diff,'Dr',a[0]])}
 		else if(diff < 0){ctransact('balance b/d',a[0],Math.abs(diff));balances.push([Math.abs(diff),'Cr',a[0]]);}
-		else if(b[1] == 'Dr'){dtransact(a[0],'balance b/d',diff);balances.push([diff,'Dr',a[0]])}
+		else if(a[1] == 'Dr'){dtransact(a[0],'balance b/d',diff);balances.push([diff,'Dr',a[0]])}
 		else {ctransact('balance b/d',a[0],Math.abs(diff));balances.push([Math.abs(diff),'Cr',a[0]]);}
 	}
 }
