@@ -35,7 +35,7 @@ function addAccount(name,side,value){
 	updateAccounts();
 }
 function updateAccounts(){
-	var table = '<table><tr><td>Account</td><td>Value</td><td>Side</td></tr>';
+	var table = '<table><tr><td>Account</td><td>Side</td><td>Value</td></tr>';
 	for(var i = 0;i < accounts.length;i++)table += '<tr><td>'+accounts[i][0]+'</td><td>'+accounts[i][1]+'</td><td>'+accounts[i][2]+'</td><tr>';
 	table += '</table>';
 	gid('accounts').innerHTML = table;
