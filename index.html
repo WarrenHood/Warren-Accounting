@@ -1,0 +1,107 @@
+<html>
+<head>
+<style>
+table{
+border:1px solid black;
+cellpadding:0px;
+cellspacing:0px;
+}
+td{
+border:1px solid black;
+	text-align:center;
+	margin: 0px;
+}
+</style>
+<script src='script.js'></script></head>
+<body>
+<center><h1>Accounting Program Created By Warren Hood</h1>
+<h1>Account Balances</h1>
+Account Name<input id='accName' size=20></input><br>
+Account Value<input id='val' size =20></input><br>
+Account type:<br>
+<form>
+<input name='typ' class='t' type='radio'>Drawings<br>
+<input  name='typ' class='t' type='radio' checked>Asset<br>
+<input  name='typ' class='t' type='radio'>Expense<br>
+<input  name='typ' class='t' type='radio'>Capital<br>
+<input  name='typ' class='t' type='radio'>Income<br>
+<input  name='typ' class='t' type='radio'>Liability<br>
+</form>
+<button id='addAcc'>Add Account</button><br>
+<h1>Accounts</h1>
+<div id='accounts'></div>
+<div id='crj'>
+
+<h1>Cash Receipts Journal</h1>
+Bank Total<input class='bank' size=20></input><br>
+Sales Total<input class='sales' size=20></input><br>
+Cost of Sales Total<input class='cos' size=20></input><br>
+Debtors Control Total<input class='debcont' size=20></input><br>
+Discount Allowed Total<input class='disall' size=20></input><br>
+Sundry Accounts:<br>
+Amount<input class='sundryamnt' size=20></input><br>
+Details<input class='sundrydet' size=20></input><br>
+Sundry Amounts:
+<div class='sundrys'></div>
+<button class='addsun'>Add sundry Account</button><br>
+</div>
+
+<div id='cpj'>
+<h1>Cash Payments Journal</h1>
+Bank Total<input class='bank' size=20></input><br>
+Trading Stock Total<input class='ts' size=20></input><br>
+Wages Total<input class='wages' size=20></input><br>
+Creditors Control Total<input class='credcont' size=20></input><br>
+Discount Received Total<input class='disrec' size=20></input><br>
+Sundry Accounts:<br>
+Amount<input class='sundryamnt' size=20></input><br>
+Details<input class='sundrydet' size=20></input><br>
+Sundry Amounts:
+<div class='sundrys'></div>
+<button class='addsun'>Add sundry Account</button><br>
+</div>
+
+<div id='dj'>
+<h1>Debtors Journal</h1>
+Sales Total<input class='sales' size=20></input><br>
+Cost of Sales Total<input class='cos' size=20></input><br>
+</div>
+
+<div id='daj'>
+<h1>Debtors Allowances Journal</h1>
+Debtors Allowance Total<input class='deball' size=20></input><br>
+Cost of Sales Total<input class='cos' size=20></input><br>
+</div>
+
+<div id='cj'>
+<h1>Creditors Journal</h1>
+Creditors Control Total<input class='credcont' size=20></input><br>
+Sundry Accounts:<br>
+Amount<input class='sundryamnt' size=20></input><br>
+Details<input class='sundrydet' size=20></input><br>
+Sundry Amounts:
+<button class='addsun'>Add sundry Account</button><br>
+
+<div class='sundrys'></div>
+</div>
+
+<div id='caj'>
+<h1>Creditors Allowances Journal</h1>
+Creditors Control Total<input class='credcont' size=20></input><br>
+
+Sundry Accounts:<br>
+Amount<input class='sundryamnt' size=20></input><br>
+Details<input class='sundrydet' size=20></input><br>
+<button class='addsun'>Add sundry Account</button><br>
+Sundry Amounts:
+<div class='sundrys'></div>
+</div><br>
+
+<button id='drawgl'>Draw General Ledger and Trial Balance</button>
+<h1>General Ledger</h1>
+<div id='gl'></div>
+<h1>Trial Balance</h1>
+<div id='tb'></div>
+</center>
+</body>
+</html>

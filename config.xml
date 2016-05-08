@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = ""
+        xmlns:gap   = ""
+        id          = "Warren's Accounting"
+        versionCode = "001" 
+        version     = "0.0.1" >
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Warren's Accounting Program</name>
+
+    <description>
+        Genral ledger and trial balance from journal totals/sundry amounts.
+    </description>
+
+    <author href="" email="nullbyte001@gmail.com">
+        Warren Hood
+    </author>
+	<preference name="DisallowOverscroll" value="true" />
+ <preference name="orientation" value="portrait" />
+  <preference name="fullscreen" value="true" />
+  <preference name='uiwebviewbounce' value='false' />
+  <splash src='splash.png' height='200' width='320'/>
+  <icon src='icon.png' height='50' width='50'/>
+</widget>
