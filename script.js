@@ -1,18 +1,18 @@
 function gid(x){return document.getElementById(x);}
-accountsN = ['capital','drawings','land and buildings','vehicles','equipment','trading stock','debtors control','bank','cash float','creditors control','sales','cost of sales','debtors allowance','stationery','wages','advertising','bank charges','packing materials','discount allowed','rent income','discount received','telephone','water and electricity'];
-sides = [1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0];
+accountsN = ['capital','drawings','land and buildings','vehicles','equipment','trading stock','debtors control','bank','cash float','fixed deposit:pride bank','creditors control','loan:good bank','sales','cost of sales','debtors allowance','stationery','wages','advertising','bank charges','packing materials','discount allowed','rent income','discount received','telephone','water and electricity'];
+sides = [1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,0,0];
 function initAccs(){
 	for(var i = 0;i < accountsN.length;i++)addAccount(accountsN[i],['Dr','Cr'][sides[i]],0);
 }
 function bringDown(){
 	for(var i = 0; i < accounts.length;i++){
 		a = accounts[i];
-	if(a[1] == 'Dr' && a[2] != 0)dtransact(a[0],'balance b/d',a[2]);
-		else if(a[2] != 0)ctransact('balance b/d',a[0],a[2]);
+	if(a[1] == 'Dr')dtransact(a[0],'balance b/d',a[2]);
+		else ctransact('balance b/d',a[0],a[2]);
 	}
 }
 window.onload = function(){
-	//initAccs();
+	initAccs();
 	gid('drawgl').onclick = dumpAccs;
 	get('crj','addsun').onclick = suncrj;
 	get('cpj','addsun').onclick = suncpj;
@@ -42,9 +42,10 @@ function updateAccounts(){
 }
 function get(jrn,acc){return gid(jrn).getElementsByClassName(acc)[0];}
 function findAcc(name){
-	for(var i = 0;i < accounts.length;i++)if(accounts[i][0] == name)return accounts[i];
-	addAccount(name,cSide,0,[],[]);
-	return accounts[accounts.length - 1];
+	var found = false;
+	for(var i = 0;i < accounts.length;i++)if(accounts[i][0] == name){return accounts[i];found = true;}
+	if(!found){addAccount(name,cSide,0,[],[]);
+	return accounts[accounts.length - 1];}
 }
 crjsun = [];
 cpjsun = [];
@@ -53,7 +54,7 @@ cajsun = [];
 
 function suncrj(){
 	console.log('Inside suncrj');
-	var val = parseFloat(get('crj','sundryamnt').value);
+	var val = bigInt(get('crj','sundryamnt').value);
 	var det = get('crj','sundrydet').value;
 	console.log(val + ' ' + det);
 	var array = [];
@@ -67,7 +68,7 @@ function suncrj(){
 }
 
 function suncpj(){
-	var val = parseFloat(get('cpj','sundryamnt').value);
+	var val = bigInt(get('cpj','sundryamnt').value);
 	var det = get('cpj','sundrydet').value;
 	var array = [];
 	array.push(val);
@@ -80,7 +81,7 @@ function suncpj(){
 }
 
 function suncj(){
-	var val = parseFloat(get('cj','sundryamnt').value);
+	var val = bigInt(get('cj','sundryamnt').value);
 	var det = get('cj','sundrydet').value;
 	var array = [];
 	array.push(val);
@@ -93,7 +94,7 @@ function suncj(){
 }
 
 function suncaj(){
-	var val = parseFloat(get('caj','sundryamnt').value);
+	var val = bigInt(get('caj','sundryamnt').value);
 	var det = get('caj','sundrydet').value;
 	var array = [];
 	array.push(val);
@@ -108,18 +109,18 @@ function transact(d,c,v){
 	console.log('debit:'+d+' Credit:'+c+' value:'+v);
 	var deb = findAcc(d);
 	var cred = findAcc(c);
-	deb[3].push([c,v]);
-	cred[4].push([d,v]);
+	deb[3].push([c,bigInt(v)]);
+	cred[4].push([d,bigInt(v)]);
 }
 function dtransact(d,c,v){
 	console.log('debit:'+d+' Credit:'+c+' value:'+v);
 	var deb = findAcc(d);
-	deb[3].push([c,v]);
+	deb[3].push([c,bigInt(v)]);
 }
 function ctransact(d,c,v){
 	console.log('debit:'+d+' Credit:'+c+' value:'+v);
 	var cred = findAcc(c);
-	cred[4].push([d,v]);
+	cred[4].push([d,bigInt(v)]);
 }
 
 function crj(){
@@ -178,18 +179,18 @@ function caj(){
 }
 function sumDr(a){
 	var sum = 0;
-	for(var i = 0; i < a[3].length;i++)sum += parseFloat(a[3][i][1]);
+	for(var i = 0; i < a[3].length;i++)sum += bigInt(a[3][i][1]);
 	return sum;
 }
 function sumCr(a){
 	var sum = 0;
-	for(var i = 0; i < a[4].length;i++)sum += parseFloat(a[4][i][1]);
+	for(var i = 0; i < a[4].length;i++)sum += bigInt(a[4][i][1]);
 	return sum;
 }
 function balance(){
 	for(var i = 0;i < accounts.length;i++){
 		var a = accounts[i];
-		var diff = parseFloat(sumDr(a)) - parseFloat(sumCr(a));
+		var diff = bigInt(sumDr(a)) - bigInt(sumCr(a));
 		if(diff > 0){dtransact(a[0],'balance b/d',diff);balances.push([diff,'Dr',a[0]])}
 		else if(diff < 0){ctransact('balance b/d',a[0],Math.abs(diff));balances.push([Math.abs(diff),'Cr',a[0]]);}
 		else if(a[1] == 'Dr'){dtransact(a[0],'balance b/d',diff);balances.push([diff,'Dr',a[0]])}
@@ -197,6 +198,7 @@ function balance(){
 	}
 }
 function dumpAccs(){
+	bringDown();
 	crj();cpj();dj();daj();cj();caj();
 	balance();
 	var gl = '';
@@ -230,9 +232,9 @@ function trialB(){
 	for(var i = 0;i < balances.length;i++){
 		var b = balances[i];
 		elt += '<tr><td>'+ b[2]+'</td><td>';
-		if(b[1] == 'Dr'){elt += b[0];d += parseFloat(b[0]);}
+		if(b[1] == 'Dr'){elt += b[0];d += bigInt(b[0]);}
 		elt += '</td><td>';
-		if(b[1] == 'Cr'){elt += b[0];c += parseFloat(b[0]);}
+		if(b[1] == 'Cr'){elt += b[0];c += bigInt(b[0]);}
 		elt += '</td></tr>'
 	}
 	elt += '<tr><td>Total</td><td>'+d+'</td><td>'+c+'</td></tr>';
